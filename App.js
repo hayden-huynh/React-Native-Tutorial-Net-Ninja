@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 
 export default function App() {
   const [people, setPeople] = useState([
@@ -12,28 +18,24 @@ export default function App() {
     { name: "bowser", id: "7" },
   ]);
 
+  const pressHandler = (id) => {
+    setPeople((prevPeople) => {
+      return prevPeople.filter(person => person.id != id);
+    })
+  }
+
   return (
     <View style={styles.container}>
-      {/* FlatList are scrollable by default */}
       <FlatList
         data={people}
-        keyExtractor={(item) => item.id} // If the elements don't have a "key" property but some other property that can act like a key, we can tell FlatList to use that property instead using keyExtractor prop
-        numColumns={2} // Number of columns to split the list up into
-        renderItem={({item}) => {
-          // Need to destructure to get the "item" property, which is the actual element in the array we assign to the "data" prop
-          // FlatList automatically looks for the "key" property in each of the array element so we don't have to set them manually
-          return <Text style={styles.item}>{item.name}</Text>
-        }}
-      />
-
-      {/* FlatList renders an element when it should be visible on the screen, whereas ScrollView always renders everything even when out of the screen, which may be inefficient and not suitable for long arrays */}
-      {/* <ScrollView>
-        {people.map((item) => (
-          <View key={item.key}>
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => pressHandler(item.id)}>
             <Text style={styles.item}>{item.name}</Text>
-          </View>
-        ))}
-      </ScrollView> */}
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 }
@@ -53,6 +55,6 @@ const styles = StyleSheet.create({
     backgroundColor: "pink",
     fontSize: 24,
     marginHorizontal: 10,
-    marginTop: 24
+    marginTop: 24,
   },
 });
