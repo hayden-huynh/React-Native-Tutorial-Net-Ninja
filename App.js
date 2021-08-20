@@ -17,7 +17,7 @@ export default function App() {
       {/* FlatList are scrollable by default */}
       <FlatList
         data={people}
-        keyExtractor={(item) => item.id} // If the elements don't have a "key" property but some other property that can act like a key, we can tell FlatList to use that property instead using keyExtractor prop
+        keyExtractor={(item) => item.id} // If the elements don't have a "key" property but some other property that can act like a key, we can tell FlatList to use that property instead of using keyExtractor prop
         numColumns={2} // Number of columns to split the list up into
         renderItem={({item}) => {
           // Need to destructure to get the "item" property, which is the actual element in the array we assign to the "data" prop
