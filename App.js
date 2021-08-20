@@ -10,6 +10,7 @@ import {
 import Header from "./components/header";
 import TodoItem from "./components/todoItem";
 import AddTodo from "./components/addTodo";
+import Sandbox from "./components/sandbox";
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -43,10 +44,10 @@ export default function App() {
   };
 
   return (
-    // As its name suggests, TouchableWithoutFeedback receives the user's tap but will not emit any visible feedback
+    // <Sandbox />
     <TouchableWithoutFeedback
       onPress={() => {
-        Keyboard.dismiss(); // Closes the currently opened keyboard
+        Keyboard.dismiss();
       }}
     >
       <View style={styles.container}>
@@ -74,8 +75,12 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 40,
+    // backgroundColor: "pink",
+    flex: 1, // Take all the available remaining space on the screen (the whole screen height minus the height of the top header in this case)
   },
   list: {
+    flex: 1, // Expand to take all the remaining available height on the screen and DO NOT overflow to outside of the visible area of the screen
+    // backgroundColor: "yellow",
     marginTop: 20,
   },
 });
