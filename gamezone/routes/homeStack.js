@@ -7,20 +7,31 @@ import ReviewDetails from "../screens/reviewDetails";
 const Stack = createStackNavigator();
 
 const HomeNavigator = () => (
-  // There are many types of Navigator. Stack Navigator is one of them
-  // The Navigator component wraps all screens that are within it
-  // Set a child component as a screen using the Screen property of the Navigator
-  <Stack.Navigator initialRouteName="Home">
-    {/* Each Screen must have at least two props: name & component */}
-    {/* name is the screen identifier and also the screen title */}
-    {/* component is the React component to be rendered as a screen */}
-    <Stack.Screen name="Home" component={Home} />
+  <Stack.Navigator
+    initialRouteName="Home"
+    // For options that should be applied to all Screens inside this Navigator, use the screenOptions prop of the Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: "#333",
+      },
+      headerTintColor: "white",
+      headerTitleAlign: "center"
+    }}
+  >
+    <Stack.Screen
+      name="Home"
+      component={Home}
+      // Each Screen component can have a options prop to configure the many things, especially the header bar on that screen
+      // Options specified here in specific Screen will override those set in the screenOptions prop of the Navigator
+      options={{
+        title: "GameZone",
+      }}
+    />
     <Stack.Screen name="ReviewDetails" component={ReviewDetails} />
   </Stack.Navigator>
 );
 
 export const AppNavigator = () => (
-  // NavigationContainer should wrap all components below the top root App component
   <NavigationContainer>
     <HomeNavigator />
   </NavigationContainer>
