@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Home from "./screens/home";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
-import { AppNavigator } from "./routes/homeStack";
+import AppNavigator from "./routes/drawer";
+import "react-native-gesture-handler";
 
 const getFonts = () =>
   Font.loadAsync({
