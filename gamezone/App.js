@@ -14,12 +14,10 @@ export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   if (fontsLoaded) {
-    return (
-      <AppNavigator />
-    );
+    return <AppNavigator />;
   } else {
     return (
-      <AppLoading      
+      <AppLoading
         startAsync={getFonts}
         onFinish={() => setFontsLoaded(true)}
         onError={console.warn}

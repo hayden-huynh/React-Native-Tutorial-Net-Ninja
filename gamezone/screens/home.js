@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import Card from "../shared/card";
+import { StatusBar } from "expo-status-bar";
 
 export default function Home({ navigation }) {
   const [reviews, setReviews] = useState([
@@ -32,6 +33,8 @@ export default function Home({ navigation }) {
   ]);
   return (
     <View style={globalStyles.container}>
+      {/* Setting the StatusbBar in one screen will set it for all other screens */}
+      <StatusBar translucent={true} style="light" backgroundColor="black"/>
       <FlatList
         data={reviews}
         renderItem={({ item }) => (
