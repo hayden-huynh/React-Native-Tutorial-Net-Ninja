@@ -6,11 +6,14 @@ import {
   FlatList,
   TouchableOpacity,
   Modal,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import Card from "../shared/card";
 import { StatusBar } from "expo-status-bar";
 import { MaterialIcons } from "@expo/vector-icons";
+import ReviewForm from "./reviewForm";
 
 export default function Home({ navigation }) {
   const [modalOpen, setModelOpen] = useState(false);
@@ -35,19 +38,31 @@ export default function Home({ navigation }) {
       key: "3",
     },
   ]);
+
+  const addReview = (review) => {
+    review.key = Math.random().toString();
+    setReviews((currentReviews) => {
+      return [review, ...currentReviews];
+    });
+    setModelOpen(false);
+  };
+
   return (
     <View style={globalStyles.container}>
       <StatusBar translucent={true} style="light" backgroundColor="black" />
 
       <Modal visible={modalOpen} animationType="slide">
-        <View style={styles.modelContent}>
-          <MaterialIcons
-            name="close"
-            size={24}
-            onPress={() => setModelOpen(false)}
-            style={{ ...styles.modalToggle, ...styles.modalClose }}
-          />
-        </View>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.modelContent}>
+            <MaterialIcons
+              name="close"
+              size={24}
+              onPress={() => setModelOpen(false)}
+              style={{ ...styles.modalToggle, ...styles.modalClose }}
+            />
+            <ReviewForm addReview={addReview} />
+          </View>
+        </TouchableWithoutFeedback>
       </Modal>
 
       <MaterialIcons
@@ -84,9 +99,9 @@ const styles = StyleSheet.create({
   },
   modalClose: {
     marginTop: 20,
-    marginBottom: 0
+    marginBottom: 0,
   },
   modelContent: {
     flex: 1,
-  }
+  },
 });
