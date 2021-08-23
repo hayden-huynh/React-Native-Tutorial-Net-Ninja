@@ -3,6 +3,7 @@ import { StyleSheet, View, Button, TextInput, Text } from "react-native";
 import { globalStyles } from "../styles/global";
 import { Formik } from "formik";
 import * as yup from "yup";
+import FlatButton from "../shared/button";
 
 const ReviewSchema = yup.object({
   title: yup.string().required().min(4),
@@ -27,7 +28,7 @@ export default function ReviewForm({ addReview }) {
         }}
         onSubmit={(values, action) => {
           addReview(values);
-          action.resetForm(); // Reset the form after submission
+          // action.resetForm(); // Reset the form after submission
         }}
       >
         {/* When there are any validation errors, yup will pass them to formik and we can access them via "props" */}
@@ -72,11 +73,7 @@ export default function ReviewForm({ addReview }) {
             </Text>
 
             {/* handleSubmit will trigger the onSubmit event of Formik */}
-            <Button
-              title="Submit"
-              color="maroon"
-              onPress={props.handleSubmit}
-            />
+            <FlatButton text="Submit" onPress={props.handleSubmit}/>
           </View>
         )}
       </Formik>
