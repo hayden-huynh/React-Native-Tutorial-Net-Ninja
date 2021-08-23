@@ -5,12 +5,16 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import Card from "../shared/card";
 import { StatusBar } from "expo-status-bar";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Home({ navigation }) {
+  const [modalOpen, setModelOpen] = useState(false);
+
   const [reviews, setReviews] = useState([
     {
       title: "Zelda, Breath of Fresh Air",
@@ -33,8 +37,26 @@ export default function Home({ navigation }) {
   ]);
   return (
     <View style={globalStyles.container}>
-      {/* Setting the StatusbBar in one screen will set it for all other screens */}
-      <StatusBar translucent={true} style="light" backgroundColor="black"/>
+      <StatusBar translucent={true} style="light" backgroundColor="black" />
+
+      <Modal visible={modalOpen} animationType="slide">
+        <View style={styles.modelContent}>
+          <MaterialIcons
+            name="close"
+            size={24}
+            onPress={() => setModelOpen(false)}
+            style={{ ...styles.modalToggle, ...styles.modalClose }}
+          />
+        </View>
+      </Modal>
+
+      <MaterialIcons
+        name="add"
+        size={24}
+        onPress={() => setModelOpen(true)}
+        style={styles.modalToggle}
+      />
+
       <FlatList
         data={reviews}
         renderItem={({ item }) => (
@@ -50,3 +72,21 @@ export default function Home({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  modalToggle: {
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "#f2f2f2",
+    padding: 10,
+    borderRadius: 10,
+    alignSelf: "center",
+  },
+  modalClose: {
+    marginTop: 20,
+    marginBottom: 0
+  },
+  modelContent: {
+    flex: 1,
+  }
+});
